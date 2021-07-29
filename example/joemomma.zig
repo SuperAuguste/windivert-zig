@@ -8,10 +8,10 @@ pub fn main() anyerror!void {
     var buffer: [64_000]u8 = undefined;
     while (true) {
         var result = try divert.receive(&buffer);
-        _ = std.mem.replace(u8, result.buffer, "Web", "Joe", result.buffer);
-        _ = std.mem.replace(u8, result.buffer, "web", "joe", result.buffer);
         _ = std.mem.replace(u8, result.buffer, "Website", "Jomomma", result.buffer);
         _ = std.mem.replace(u8, result.buffer, "website", "jomomma", result.buffer);
+        _ = std.mem.replace(u8, result.buffer, "Web", "Joe", result.buffer);
+        _ = std.mem.replace(u8, result.buffer, "web", "joe", result.buffer);
         _ = try divert.send(result.buffer, result.address);
     }
 }
