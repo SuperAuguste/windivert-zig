@@ -27,3 +27,5 @@ pub const WinDivert = struct {
         return bindings.send(self.handle, buffer, address);
     }
 };
+
+pub const parsePacket = bindings.parsePacket;
