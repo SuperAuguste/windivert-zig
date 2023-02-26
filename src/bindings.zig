@@ -66,7 +66,7 @@ pub const LayerData = extern union {
     reserved: [64]u8,
 };
 
-pub const Address = packed struct {
+pub const Address = extern struct {
     timestamp: i64,
     layer: u8,
     event: u8,
@@ -93,8 +93,8 @@ pub const Address = packed struct {
 
 pub extern fn WinDivertOpen(filter: [*c]const u8, layer: Layer, priority: i16, flags: Flags) Handle;
 pub extern fn WinDivertClose(handle: Handle) windows.BOOL;
-pub extern fn WinDivertRecv(handle: Handle, pPacket: ?*c_void, packetLen: c_uint, pRecvLen: [*c]c_uint, pAddr: ?*Address) windows.BOOL;
-pub extern fn WinDivertSend(handle: Handle, pPacket: ?*const c_void, packetLen: c_uint, pSendLen: [*c]c_uint, pAddr: ?*const Address) windows.BOOL;
+pub extern fn WinDivertRecv(handle: Handle, pPacket: ?*anyopaque, packetLen: c_uint, pRecvLen: [*c]c_uint, pAddr: ?*Address) windows.BOOL;
+pub extern fn WinDivertSend(handle: Handle, pPacket: ?*const anyopaque, packetLen: c_uint, pSendLen: [*c]c_uint, pAddr: ?*const Address) windows.BOOL;
 
 pub const OpenError = error{
     DriverNotFound,
@@ -134,6 +134,7 @@ pub const ReceiveError = error{
     NoData,
     Unexpected,
 };
+
 pub const ReceiveResult = struct {
     len: c_uint,
     buffer: []u8,
